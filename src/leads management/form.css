@@ -1,0 +1,21 @@
+*{
+    margin-top: 10px;
+}
+.buttons button{
+    margin: 10px;
+}
+
+.imageupload img{
+    width: 100px;
+}
+.imageupload{
+    margin-bottom: 10px;
+}
+
+.flexit{
+    display: flex;
+}
+
+.distance-between{
+    justify-content: space-between;
+}
