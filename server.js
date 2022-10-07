@@ -35,8 +35,18 @@ app.set("views", path.join(__dirname, "views"));
 app.get("/", (req, res) => {
     res.render("index");
   });
-  
-  
+  app.get("/login", (req, res) => {
+    res.render("login");
+  });
+  app.get("/signup", (req, res) => {
+    res.render("signup");
+  });
+  app.get("/leads", (req, res) => {
+    res.render("leads");
+  });
+  app.get("/leadmanagement", (req, res) => {
+    res.render("leadManagement");
+  });
 // app
 //   app.use("/api/image",require("./multer"))
 //   app.use("/api/auth",require("./routes/Auth/userAuth"))
