@@ -61,6 +61,7 @@ const LeadSchema = new Schema({
     }
 
 
+
 });
 const Lead = mongoose.model('lead', LeadSchema);
 

@@ -6,11 +6,12 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="css/navbar.css">
+  <link rel="stylesheet" href="css/dashboard.css">
   <link rel="stylesheet" href="css/login.css">
 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-  <title>Document</title>
+  <title>CRM-Decryptors</title>
 </head>
 
 <body>
@@ -46,31 +47,45 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="/">Home</a>
+            <a class="nav-link active" aria-current="page" href="/dashboard">Dashboard</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/leads">Lead Management</a>
           </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Dropdown
-            </a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Action</a></li>
-              <li><a class="dropdown-item" href="#">Another action</a></li>
-              <li>
-                <hr class="dropdown-divider">
-              </li>
-              <li><a class="dropdown-item" href="#">Something else here</a></li>
-            </ul>
+          <li class="nav-item">
+            <a class="nav-link" href="/tasktable">Task Management</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link disabled">Disabled</a>
+            <a class="nav-link" href="/documenttable">Document Management</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/leads">Email Management</a>
+          </li>
+          
         </ul>
         <form class="d-flex space-between-e" role="search">
-          <a href="/login" class="navbar-button">Login</a>
-          <a href="/signup" class="navbar-button">Signup</a>
+          <% if (req.isAuthenticated()) { %>
+
+            <div class="btn-group logoutbtn ">
+              <button class="btn-log btn-secondary btn-sm logoutbtnmain btnspsp" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <%= user.userDisplayName %>  
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
+                  <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
+                  </svg>
+              </button>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="/vendordashboard">Account info</a></li>
+                <li><a href="/logout" class="dropdown-item" href="#">Logout</a></li>
+              </ul>
+             
+              </div>
+  
+  
+            <% } else { %>
+              <a href="/login" class="navbar-button">Login</a>
+              <a href="/signup" class="navbar-button">Signup</a>
+           <% } %> 
+         
         </form>
       </div>
     </div>
