@@ -12,6 +12,8 @@ const passportLocalMongoose = require("passport-local-mongoose");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const findOrCreate = require("mongoose-findorcreate");
 
+const User = require('./models/user');
+const Lead = require('./models/leads');
 
 const port = process.env.PORT || 5000;
 const ConnectionDB = require("./database");
@@ -47,7 +49,9 @@ app.get("/", (req, res) => {
   app.get("/leadmanagement", (req, res) => {
     res.render("leadManagement");
   });
-// app
+
+
+  
 //   app.use("/api/image",require("./multer"))
 //   app.use("/api/auth",require("./routes/Auth/userAuth"))
 app.listen(port, () => console.log(`Server up and running...at ${port}`))
