@@ -1,0 +1,63 @@
+<div class="dashboard-heading-main">
+    <div class="dashboard-heading-main-sub">
+        <p>Email Management</p>
+    </div>
+</div>
+
+
+<main id="site-main">
+    <div class="containerdash">
+        <div class="box-nav d-flex justify-between">
+            <a href="/leadmanagement" class="border-shadow">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                    <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+                    <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+                  </svg>
+                <span class="text-gradient">Manage email</span>
+            </a>
+        </div>
+
+        <!-- form handling -->
+        <form action="/" method="POST">
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Lead Owner</th>
+                        <th>First Name</th>
+                        <th>Email</th>
+                        <th>Mobile</th>
+                        <th>Company</th>
+                        <th>Compose Email</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% for(var i = 0; i < crm.length; i++) { %>
+                        <tr>
+                            <td><%=crm[i].leadOwner %></td>
+                            <td><%= crm[i].firstName %></td>
+                            <td><%=crm[i].leadEmail%></td>
+                            <td><%= crm[i].mobile %></td>
+                            <td><%= crm[i].company %></td>
+                            <td>
+                                <a href="/email/<%= crm[i].leadEmail%> " class="btn border-shadow update ">
+                                    <span class="text-gradient"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope" viewBox="0 0 16 16">
+                                        <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2Zm13 2.383-4.708 2.825L15 11.105V5.383Zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741ZM1 11.105l4.708-2.897L1 5.383v5.722Z"/>
+                                      </svg></span>
+                                </a>
+                                <a class="btn border-shadow delete" data-id= >
+                                    <span class="text-gradient"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd" d="M13.854 2.146a.5.5 0 0 1 0 .708l-11 11a.5.5 0 0 1-.708-.708l11-11a.5.5 0 0 1 .708 0Z"/>
+                                        <path fill-rule="evenodd" d="M2.146 2.146a.5.5 0 0 0 0 .708l11 11a.5.5 0 0 0 .708-.708l-11-11a.5.5 0 0 0-.708 0Z"/>
+                                      </svg></span>
+                                </a>
+                            </td>
+                        </tr>
+                        <% } %>
+                </tbody>
+            </table>
+            </table>
+        </form>
+    </div>
+</main>
+
+<script src="js/table.js"></script>

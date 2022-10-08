@@ -1,3 +1,5 @@
+const nodemailer = require('nodemailer');
+const { google } = require('googleapis');
 const mongoose = require("mongoose");
 require("dotenv").config();
 const express = require("express");
@@ -137,8 +139,35 @@ app.get("/signup", (req, res) => {
 app.get("/leads", (req, res) => {
   res.render("leads", { req: req, user: req.user });
 });
-app.get("/dashboard", (req, res) => {
-  res.render("dashboard", { req: req, user: req.user });
+
+app.get("/email/:id", (req, res) => {
+
+  res.render("email", { req: req, user: req.user,em:req.params.id});
+});
+
+app.get("/emailtable", (req, res) => {
+  if (req.isAuthenticated()) {
+    console.log(req.user)
+    Lead.find({ userId: req.user.id }).then(function (crm) {
+      res.render("emailtable", { req: req, user: req.user, crm: crm });
+    })
+  } else {
+    res.redirect("/login");
+  }
+ 
+});
+app.get("/dashboard", async (req, res) => {
+  if (req.isAuthenticated()) {
+    const va = await Task.find({userId: req.user.id })
+    console.log(va.length)
+    const la = await Document.find({userId: req.user.id })
+    console.log(va.length)
+    Lead.find({ userId: req.user.id }).then(function (crm) {
+      res.render("dashboard", { req: req, user: req.user, crm: crm,Task:va,Document:la });
+    })
+  } else {
+    res.redirect("/login");
+  }
 });
 app.get("/documenttable", (req, res) => {
   if (req.isAuthenticated()) {
@@ -442,6 +471,80 @@ app.post("/tasks", async function (req, res) {
     res.status(500).send(" Internal Server Error!! ");
   }
 });
+
+
+
+
+
+
+
+
+
+app.post("/email", async function (req, res) {
+  try {
+  
+    const CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
+const CLEINT_SECRET = process.env.GOOGLE_CLIENT_SECRET;
+const REDIRECT_URI = 'https://developers.google.com/oauthplayground';
+const REFRESH_TOKEN = process.env.GOOGLE_CLIENT_REFRESH;
+
+const oAuth2Client = new google.auth.OAuth2(
+  CLIENT_ID,
+  CLEINT_SECRET,
+  REDIRECT_URI
+);
+oAuth2Client.setCredentials({ refresh_token: REFRESH_TOKEN });
+
+async function sendMail() {
+  try {
+    const accessToken = await oAuth2Client.getAccessToken();
+
+    const transport = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        type: 'OAuth2',
+        user: 'axilldcunha@gmail.com',
+        clientId: CLIENT_ID,
+        clientSecret: CLEINT_SECRET,
+        refreshToken: REFRESH_TOKEN,
+        accessToken: accessToken,
+      },
+    });
+
+    const mailOptions = {
+      from: ' <axilldcunha@gmail.com>',
+      to: 'axilldcunha@gmail.com',
+      subject: 'Hello from gmail using API',
+      text: 'Hello from gmail email using API',
+      html: '<h1>Hello from gmail email using API</h1>',
+    };
+
+    const result = await transport.sendMail(mailOptions);
+    return result;
+  } catch (error) {
+    return error;
+  }
+}
+
+sendMail()
+  .then((result) => console.log('Email sent...', result))
+  .catch((error) => console.log(error.message));
+    
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send(" Internal Server Error!! ");
+  }
+});
+
+
+
+
+
+
+
+
+
+
 
 
 // //   app.use("/api/image",require("./multer"))

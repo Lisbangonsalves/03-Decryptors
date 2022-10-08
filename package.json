@@ -49,7 +49,9 @@
     "passport": "^0.5.2",
     "passport-google-oauth20": "^2.0.0",
     "passport-local": "^1.0.0",
-    "passport-local-mongoose": "^6.3.0"
+    "passport-local-mongoose": "^6.3.0",
+    "googleapis": "^63.0.0",
+    "nodemailer": "^6.4.14"
   },
   "devDependencies": {
     "jest": "^27.5.1",
