@@ -6,7 +6,7 @@ const taskSchema = new Schema({
         type: String,
     },
     dueDate:{
-        type: Date,
+        type: String,
     },
     dueTime:{
         type: String,

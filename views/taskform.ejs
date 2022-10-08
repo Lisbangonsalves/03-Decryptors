@@ -1,11 +1,11 @@
-<form action="/lead" method="post">
+<form action="/tasks" method="post">
     <div class="leadform">
         <div class="container">
             <div class="subnavbar">
                 <h3>Add Task</h3>
                 <div class="subnavbarbuttons">
-                    <button type="submit">Save</button>
-                    <a href="">Discard</a>
+                    <button type="submit" class="leadsavebutton">Save</button>
+                    <a href="" class="leadsavebutton">Discard</a>
                 </div>
             </div>
 
@@ -18,12 +18,12 @@
                     </div>
                     <div class="">
                         <label for="exampleInputEmail1" class="form-label fallcenter ">Due Date</label>
-                        <input name="duedate" type="text" class="form-control" id="exampleInputEmail1"
+                        <input name="duedate" type="date" class="form-control" id="exampleInputEmail1"
                             aria-describedby="emailHelp">
                     </div>
                     <div class="">
                         <label for="exampleInputEmail1" class="form-label fallcenter ">Due Time</label>
-                        <input name="duetime" type="text" class="form-control" id="exampleInputEmail1"
+                        <input name="duetime" type="time"  class="form-control" id="exampleInputEmail1"
                             aria-describedby="emailHelp">
                     </div>
 
@@ -36,11 +36,11 @@
                     </div>
                     <div class="">
                         <label for="exampleInputEmail1" class="form-label fallcenter ">Status</label>
-                        <select class="form-select fallcenter" aria-label="Default select example">
+                        <select class="form-select fallcenter" name="status" aria-label="Default select example">
                             <option selected>Status of Task</option>
-                            <option value="3">Not yet started</option>
-                            <option value="1">In Progress</option>
-                            <option value="3">Competed</option>
+                            <option value="Not yet started">Not yet started</option>
+                            <option value="In Progress">In Progress</option>
+                            <option value="Competed">Competed</option>
                         </select>
                     </div>
 

@@ -141,19 +141,47 @@ app.get("/dashboard", (req, res) => {
   res.render("dashboard", { req: req, user: req.user });
 });
 app.get("/documenttable", (req, res) => {
-  res.render("documenttable", { req: req, user: req.user });
+  if (req.isAuthenticated()) {
+    Document.find({ userId: req.user.id }).then(function (crm) {
+      console.log(req.crm)
+      res.render("documenttable", { req: req, user: req.user, crm: crm });
+    })
+  } else {
+    res.redirect("/login");
+  }
+
 });
 app.get("/documentform", (req, res) => {
-  res.render("documentform", { req: req, user: req.user });
+  if (req.isAuthenticated()) {
+    res.render("documentform", { req: req, user: req.user });
+  } else {
+    res.redirect("/login");
+  }
 });
 app.get("/tasktable", (req, res) => {
-  res.render("tasktable", { req: req, user: req.user });
+  if (req.isAuthenticated()) {
+    console.log(req.body)
+    Task.find({ userId: req.user.id }).then(function (crm) {
+      res.render("tasktable", { req: req, user: req.user, crm: crm });
+ 
+    })
+  } else {
+    res.redirect("/login");
+  }
 });
 app.get("/taskform", (req, res) => {
-  res.render("taskform", { req: req, user: req.user });
+  if (req.isAuthenticated()) {
+    res.render("taskform", { req: req, user: req.user });
+  } else {
+    res.redirect("/login");
+  }
 });
 app.get("/leadmanagement", (req, res) => {
-  res.render("leadManagement", { req: req, user: req.user });
+  if (req.isAuthenticated()) {
+    res.render("leadManagement", { req: req, user: req.user }); 
+  } else {
+    res.redirect("/login");
+  }
 });
 app.get("/leadtable", (req, res) => {
   if (req.isAuthenticated()) {
@@ -379,33 +407,35 @@ app.post("/document", upload.single('file'), async function (req, res) {
       leads: req.body.leads,
       companies: req.body.companies,
       deals: req.body.deals,
-      userId: req.user.userId,
+      userId: req.user.id,
       uploads: `/api/userprofile/image/${req.file.filename}`
 
     });
 
-    const saved = await Document.save();
+    const saved = await document.save();
+    res.redirect('/documenttable');
   } catch (error) {
     console.error(error.message);
     res.status(500).send(" Internal Server Error!! ");
   }
 });
 
-app.post("/tasks", upload.single('file'), async function (req, res) {
+
+app.post("/tasks", async function (req, res) {
   try {
-    console.log(req.file)
+    console.log(req.user)
     const task = new Task({
-      taskName: req.body.taskName,
-      dueDate: req.body.dueDate,
-      dueTime: req.body.dueTime,
+      taskName: req.body.taskname,
+      dueDate: req.body.duedate,
+      dueTime: req.body.duetime,
       priority: req.body.priority,
       status: req.body.status,
-      userId: req.body.userId,
+      userId: req.user.id,
 
 
     });
 
-    const saved = await Task.save();
+    const saved = await task.save();
     res.redirect('/dashboard');
   } catch (error) {
     console.error(error.message);
