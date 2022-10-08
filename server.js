@@ -92,7 +92,7 @@ passport.use(
     {
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: "http://localhost:5000/auth/google/callback",
+      callbackURL: "https://crmmanager.herokuapp.com/auth/google/callback",
       userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo",
     },
     function (accessToken, refreshToken, profile, cb) {
@@ -242,7 +242,7 @@ const Grid = require('gridfs-stream');
 const fs = require('fs')
 const crypto = require('crypto');
 let gfs;
-const hostname = "https://worksaga.herokuapp.com"
+const hostname = "https://crmmanager.herokuapp.com"
 //create mongoose connection for multer 
 const conn = mongoose.createConnection(process.env.MONGO_URI);
 
