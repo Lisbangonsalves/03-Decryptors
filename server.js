@@ -513,10 +513,10 @@ async function sendMail() {
 
     const mailOptions = {
       from: ' <axilldcunha@gmail.com>',
-      to: 'axilldcunha@gmail.com',
-      subject: 'Hello from gmail using API',
-      text: 'Hello from gmail email using API',
-      html: '<h1>Hello from gmail email using API</h1>',
+      to: req.body.tomail,
+      subject: req.body.subject,
+      text: 'CRM- Encryptors',
+      html: req.bodyebody,
     };
 
     const result = await transport.sendMail(mailOptions);
