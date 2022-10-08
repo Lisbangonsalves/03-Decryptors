@@ -15,6 +15,8 @@ const findOrCreate = require("mongoose-findorcreate");
 const bodyParser = require("body-parser");
 // const User = require('./models/user');
 const Lead = require("./models/leads");
+const Task = require("./models/task");
+const Document = require("./models/document");
 
 const port = process.env.PORT || 5000;
 const ConnectionDB = require("./database");
@@ -153,6 +155,18 @@ app.get("/taskform", (req, res) => {
 app.get("/leadmanagement", (req, res) => {
   res.render("leadManagement", { req: req, user: req.user });
 });
+app.get("/leadtable", (req, res) => {
+  if (req.isAuthenticated()) {
+    console.log(req.user)
+    Lead.find({ userId: req.user.id }).then(function (crm) {
+      res.render("leadtable", { req: req, user: req.user, crm: crm });
+    })
+  } else {
+    res.redirect("/login");
+  }
+
+
+});
 
 app.get("/logout", function (req, res) {
   console.log();
@@ -169,6 +183,7 @@ const multer = require('multer');
 const { GridFsStorage } = require('multer-gridfs-storage');
 const Grid = require('gridfs-stream');
 const fs = require('fs')
+const crypto = require('crypto');
 let gfs;
 const hostname = "https://worksaga.herokuapp.com"
 //create mongoose connection for multer 
@@ -188,7 +203,7 @@ const storage = new GridFsStorage({
         if (err) {
           return reject(err);
         }
-        const filename = buf.toString('hex') + `_${req.user.id}` + path.extname(file.originalname);
+        const filename = buf.toString('hex') + path.extname(file.originalname);
         const fileInfo = {
           filename: filename,
           bucketName: 'uploads'
@@ -226,7 +241,7 @@ app.post('/banner', upload.single('file'), async (req, res) => {
 
 
 app.post('/editdetails', upload.single('file'), async (req, res) => {
-  User.findOneAndUpdate({ _id: req.user.id }, { $set: { name: req.body.name },$set: { email: req.body.email },$set: { mobileNo: req.body.mobileNo } }, { new: true }, (err, doc) => {
+  User.findOneAndUpdate({ _id: req.user.id }, { $set: { name: req.body.name }, $set: { email: req.body.email }, $set: { mobileNo: req.body.mobileNo } }, { new: true }, (err, doc) => {
     if (err) {
       res.status(200).json({ sucess: false, message: "Try again later something went wrong" })
     }
@@ -319,38 +334,85 @@ app.post("/register", function (req, res) {
 });
 
 
-app.post("/lead",upload.single('file'), async function (req, res) {
+app.post("/lead", upload.single('file'), async function (req, res) {
   try {
-    console.log(req)
+
+    console.log(req.user)
     const lead = new Lead({
-      leadowner:req.body.leadowner,
-      firstname:req.body.firstname,
-      title:req.body.title,
+      leadOwner: req.body.leadowner,
+      firstName: req.body.firstname,
+      title: req.body.title,
       mobile: req.body.mobile,
       leadSource: req.body.leadsource,
-      company:req.body.company,
-      annualRevenue:req.body.annualrevenue,
-      lastName:req.body.lastname,
-      email: req.body.email,
-      website:req.body.website,
+      company: req.body.company,
+      annualRevenue: req.body.annualrevenue,
+      lastName: req.body.lastname,
+      leadEmail: req.body.email,
+      website: req.body.website,
       numberOfEmployee: req.body.employees,
       rating: req.body.rating,
-      street:req.body.street,
+      street: req.body.street,
       state: req.body.state,
       city: req.body.state,
       zipcode: req.body.zipcode,
       description: req.body.description,
       attachment: `/api/userprofile/image/${req.file.filename}`,
-      
-      
+      userId: req.user.id
+
     });
 
     const saved = await lead.save();
+    res.redirect('/dashboard');
   } catch (error) {
     console.error(error.message);
     res.status(500).send(" Internal Server Error!! ");
   }
 });
+
+app.post("/document", upload.single('file'), async function (req, res) {
+  try {
+    console.log(req.file)
+    const document = new Document({
+      name: req.body.name,
+      owner: req.body.owner,
+      contact: req.body.contact,
+      leads: req.body.leads,
+      companies: req.body.companies,
+      deals: req.body.deals,
+      userId: req.user.userId,
+      uploads: `/api/userprofile/image/${req.file.filename}`
+
+    });
+
+    const saved = await Document.save();
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send(" Internal Server Error!! ");
+  }
+});
+
+app.post("/tasks", upload.single('file'), async function (req, res) {
+  try {
+    console.log(req.file)
+    const task = new Task({
+      taskName: req.body.taskName,
+      dueDate: req.body.dueDate,
+      dueTime: req.body.dueTime,
+      priority: req.body.priority,
+      status: req.body.status,
+      userId: req.body.userId,
+
+
+    });
+
+    const saved = await Task.save();
+    res.redirect('/dashboard');
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send(" Internal Server Error!! ");
+  }
+});
+
 
 // //   app.use("/api/image",require("./multer"))
 //   app.use("/api/auth",require("./routes/Auth/userAuth"))

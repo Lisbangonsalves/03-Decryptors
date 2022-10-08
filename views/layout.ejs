@@ -50,7 +50,7 @@
             <a class="nav-link active" aria-current="page" href="/dashboard">Dashboard</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/leads">Lead Management</a>
+            <a class="nav-link" href="/leadtable">Lead Management</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/tasktable">Task Management</a>
@@ -61,31 +61,34 @@
           <li class="nav-item">
             <a class="nav-link" href="/leads">Email Management</a>
           </li>
-          
+
         </ul>
         <form class="d-flex space-between-e" role="search">
           <% if (req.isAuthenticated()) { %>
 
             <div class="btn-group logoutbtn ">
-              <button class="btn-log btn-secondary btn-sm logoutbtnmain btnspsp" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <%= user.userDisplayName %>  
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
-                  <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
+              <button class="btn-log btn-secondary btn-sm logoutbtnmain btnspsp" type="button" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                <%= user.userDisplayName %>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                    class="bi bi-caret-down-fill" viewBox="0 0 16 16">
+                    <path
+                      d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
                   </svg>
               </button>
               <ul class="dropdown-menu">
                 <li><a class="dropdown-item" href="/vendordashboard">Account info</a></li>
                 <li><a href="/logout" class="dropdown-item" href="#">Logout</a></li>
               </ul>
-             
-              </div>
-  
-  
+
+            </div>
+
+
             <% } else { %>
               <a href="/login" class="navbar-button">Login</a>
               <a href="/signup" class="navbar-button">Signup</a>
-           <% } %> 
-         
+              <% } %>
+
         </form>
       </div>
     </div>

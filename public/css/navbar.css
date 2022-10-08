@@ -18,3 +18,19 @@
     color: #0077C0;
     background-color: white;
 }
+
+.leadsavebutton{
+    text-decoration: none;
+    background-color: #0077C0;
+    color: white;
+    padding: 8px 15px 8px 15px;
+    border-radius: 10px;
+    outline: none;
+    border: none;
+    margin-right: 20px;
+}
+.leadsavebutton:hover{
+    color: #0077C0;
+    background-color: white;
+    border: solid 1px #0077C0;
+}

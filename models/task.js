@@ -2,13 +2,13 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const taskSchema = new Schema({
-    taskname:{
+    taskName:{
         type: String,
     },
-    duedate:{
-        type: date,
+    dueDate:{
+        type: Date,
     },
-    duetime:{
+    dueTime:{
         type: String,
     },
     priority:{
@@ -17,11 +17,9 @@ const taskSchema = new Schema({
     status:{
         type:String,
     },
-
-    
-
-
-
+    userId:{
+        type:String,
+    }
 });
 const Task = mongoose.model('task', taskSchema);
 

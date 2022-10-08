@@ -58,9 +58,10 @@ const LeadSchema = new Schema({
     },
     attachment: {
         type: Array,
+    },
+    userId:{
+        type:String,
     }
-
-
 
 });
 const Lead = mongoose.model('lead', LeadSchema);

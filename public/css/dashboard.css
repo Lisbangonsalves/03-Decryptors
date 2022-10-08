@@ -362,7 +362,7 @@ table{
     vertical-align: top;
     text-align: center;
     
-    border: 3px solid #246dec;
+    border: 3px solid #1D242B;
 
 }
 
@@ -374,7 +374,7 @@ table{
 }
 
 .table tr:hover{
-    background-color:#06d6a0 ;
+    background-color:#C7EEFF ;
 }
 
 .table tr:hover td > a{

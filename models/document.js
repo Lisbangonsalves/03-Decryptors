@@ -24,6 +24,9 @@ const documentSchema = new Schema({
   uploads: {
     type: Array,
   },
+  userId:{
+    type:String,
+  }
 });
 
 const Document = mongoose.model("document", documentSchema);

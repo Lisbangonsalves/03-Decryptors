@@ -1,21 +1,21 @@
-<form action="/lead" method="post">
+<form action="/lead" method="post" enctype="multipart/form-data" >
     <div class="leadform">
         <div class="container">
             <div class="subnavbar">
                 <h3>Create Lead</h3>
-                <div class="subnavbarbuttons">
-                    <button type="submit"  >Save</button>
-                    <a href="">Discard</a>
+                <div class="subnavbarbuttons ">
+                    <button type="submit" class="leadsavebutton" >Save</button>
+                    <a href="" class="leadsavebutton">Discard</a>
                 </div>
             </div>
 
-            <div class="uploadimage">
+            <!-- <div class="uploadimage">
                 <h4>
                     Lead Image
                 </h4>
                 <a href=""><img src="img/profile.png" alt="" srcset=""></a>
                 
-            </div>
+            </div> -->
 
             <h4>Lead Information</h4>
             <div class="splitcontainer">
@@ -120,7 +120,6 @@
                 
                 <div class="input-group">
                     <input type="file" name="file" class="form-control" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload">
-                    <button class="btn btn-outline-secondary" type="button" id="inputGroupFileAddon04">Upload</button>
                   </div>
                
             </div>
