@@ -516,7 +516,7 @@ async function sendMail() {
       to: req.body.tomail,
       subject: req.body.subject,
       text: 'CRM- Encryptors',
-      html: req.bodyebody,
+      html: req.body.ebody,
     };
 
     const result = await transport.sendMail(mailOptions);
@@ -528,8 +528,9 @@ async function sendMail() {
 
 sendMail()
   .then((result) => console.log('Email sent...', result))
+  
   .catch((error) => console.log(error.message));
-    
+  res.redirect('/emailtable')
   } catch (error) {
     console.error(error.message);
     res.status(500).send(" Internal Server Error!! ");
